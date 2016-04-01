@@ -1,0 +1,12 @@
+head,2
+lots
+dogs
+join
+deny
+hold,0
+hole
+coma
+mood
+shut
+cool
+meat,4
