@@ -1,118 +1,74 @@
 #Decryptinator
-
-print ()
-print ("Welcome to the Decryptinator!")
-print ()
-print (" ***The Fallout Computer Password Decryptor by Jon Collins***")
-
-#input
-
-print ()
-char = float (input ("Enter number of characters for word sets: "))
-print ()
-print ("Type all words shown on screen. When done, type the letter 'd', then Enter.")
-print ()
-
-a = []
-inpt = 0
-
-while inpt != "d":
-
-    inpt = input ("Enter word: ")
-    a.append (inpt)
-    if (len(inpt) != char and inpt != "d"):
-        print ("Error: Word does not have correct number of characters. Please check your spelling and try again.")
-        a.pop ()
-    if (inpt == "d"):
-        a.remove("d")
-        break
+def welcome():
+    print ("\nWelcome to the Decryptinator!\n")
+    print (" ***The Fallout Computer Password Decryptor by Jon Collins***")
+    print ("\n"*4)
 
 
-#Try 1
+def enterWords():
+    #input
+    char = float (input ("Enter number of characters for word sets: "))
+    print ("\nType all words shown on screen. When done, type the letter 'd', then Enter.\n")
 
-trywrd = input ("Enter try word: ")
-trynum = float (input ("Enter number correct: "))
-a.remove (trywrd)
+    tryList = []
+    inpt = 0
+
+    while inpt != "d":
+
+        inpt = input ("Enter word: ")
+        tryList.append (inpt)
+        if (len(inpt) != char and inpt != "d"):
+            print ("Error: Word does not have correct number of characters. Please check your spelling and try again.")
+            tryList.pop ()
+        if (inpt == "d"):
+            tryList.remove("d")
+            break
+
+    return tryList
 
 
-tag = -1
-b = []    
-    
-while tag < len(a)-1:
 
-    tag += 1
+def tryUnlock(workSet):
+
+    trywrd = input ("Enter try word: ")
+    trynum = float (input ("Enter number correct: "))
+    workSet.remove (trywrd)
+
     count = 0
-    let = -1
-    while let < len(a[tag])-1:
-        let += 1
-           
-        if a[tag][let] == trywrd[let]:
-            count += 1
 
-    if (trynum == 0 and count == 0):
-        b.append (a[tag])
-    elif count == trynum:
-        b.append (a[tag])
+    for word in workSet:
 
+        for letter in word:
+            if word[let] == trywrd[let]:
+                count += 1
 
-print ('Possibles are: ', b)
-
-#Try 2
-
-trywrd = input ("Enter try word: ")
-trynum = float (input ("Enter number correct: "))
-b.remove (trywrd)
+                # exit loop if has more letters than trynum
+                if count > trynum:
+                    workSet.remove(word)
+                    break
+        """
+        if (trynum == 0 and count == 0):
+            b.append (a[tag])
+        el
+        """
+        if count < trynum:
+            workSet.remove(word)
 
 
-tag = -1
-c = []    
-    
-while tag < len(b)-1:
-
-    tag += 1
-    count = 0
-    let = -1
-    while let < len(b[tag])-1:
-        let += 1
-           
-        if b[tag][let] == trywrd[let]:
-            count += 1
-
-    if (trynum == 0 and count == 0):
-        c.append (b[tag])
-    elif count == trynum:
-        c.append (b[tag])
+    return workSet
 
 
-print ('Possibles are: ', c)
-
-#Try 3
-
-trywrd = input ("Enter try word: ")
-trynum = float (input ("Enter number correct: "))
-c.remove (trywrd)
 
 
-tag = -1
-d = []    
-    
-while tag < len(c)-1:
+def main():
 
-    tag += 1
-    count = 0
-    let = -1
-    while let < len(c[tag])-1:
-        let = let + 1
-           
-        if c[tag][let] == trywrd[let]:
-            count += 1
+    welcome()
 
-    if (trynum == 0 and count == 0):
-        d.append (c[tag])
-    elif count == trynum:
-        d.append (c[tag])
+    workSet = enterWords()
 
+    for i in range(0,2):
+        workSet = tryUnlock(workSet)
 
-print ('Possibles are: ', d)
-print ()
-print ('Good Luck!!!')
+    print ('Good Luck!!!')
+
+main()
