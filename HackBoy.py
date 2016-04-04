@@ -7,22 +7,22 @@ def welcome():
 
 def enterWords():
     #input
-    char = float (input ("Enter number of characters for word sets: "))
+    char = int (input ("Enter number of characters for word sets: "))
     print ("\nType all words shown on screen. When done, type the letter 'd', then Enter.\n")
 
-    tryList = []
+    tryList = {}
     inpt = 0
 
     while inpt != "d":
 
         inpt = input ("Enter word: ")
-        tryList.append (inpt)
+        if (inpt == "d"):
+            break
+        tryList[inpt] = 0
         if (len(inpt) != char and inpt != "d"):
             print ("Error: Word does not have correct number of characters. Please check your spelling and try again.")
-            tryList.pop ()
-        if (inpt == "d"):
-            tryList.remove("d")
-            break
+            tryList.remove(inpt)
+
 
     return tryList
 
@@ -31,31 +31,35 @@ def enterWords():
 def tryUnlock(workSet):
 
     trywrd = input ("Enter try word: ")
-    trynum = float (input ("Enter number correct: "))
-    workSet.remove (trywrd)
-
-    count = 0
+    strTryNum = input ("Enter number correct: ")
+    trynum = int(strTryNum)
+    workSet[trywrd] = 1
 
     for word in workSet:
-
-        for letter in word:
-            if word[let] == trywrd[let]:
+        print (workSet)
+        count = 0
+        for i in range(0,len(trywrd)):
+            print (word[i], trywrd[i])
+            if word[i] == trywrd[i]:
                 count += 1
 
-                # exit loop if has more letters than trynum
-                if count > trynum:
-                    workSet.remove(word)
-                    break
-        """
-        if (trynum == 0 and count == 0):
-            b.append (a[tag])
-        el
-        """
-        if count < trynum:
-            workSet.remove(word)
+        print (trywrd, word, count)
+
+        # exit loop if has more letters than trynum
+        if count != trynum:
+            workSet[word] = 1
+            #break
+    print (workSet)
 
 
-    return workSet
+    dictOutList = {}
+    for word in workSet:
+
+        if workSet[word] == 0:
+            dictOutList[word] = 0
+
+
+    return dictOutList
 
 
 
@@ -66,9 +70,10 @@ def main():
 
     workSet = enterWords()
 
-    for i in range(0,2):
+    for i in range(0,3):
         workSet = tryUnlock(workSet)
+        print (workSet)
 
-    print ('Good Luck!!!')
+    print ("\nGood Luck!!!\n")
 
 main()
