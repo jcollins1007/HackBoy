@@ -36,14 +36,14 @@ def tryUnlock(workSet):
     workSet[trywrd] = 1
 
     for word in workSet:
-        print (workSet)
+        #print (workSet)
         count = 0
         for i in range(0,len(trywrd)):
-            print (word[i], trywrd[i])
+            #print (word[i], trywrd[i])
             if word[i] == trywrd[i]:
                 count += 1
 
-        print (trywrd, word, count)
+        #print (trywrd, word, count)
 
         # exit loop if has more letters than trynum
         if count != trynum:
